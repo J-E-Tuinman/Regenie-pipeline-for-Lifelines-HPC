@@ -141,10 +141,11 @@ summary(DAFFY$BMI)
 # Note that FID have changed to 0 in v2, so we need to do that manually
 PCAFFY <- read.table("/groups/umcg-lifelines/rsc02/releases/affymetrix_genotypes/v1/PCs/UGLI2_PCs.txt",
                     header = T, stringsAsFactors = F)
-PCAFFY$DIF <- 0L
+PCAFFY$FID <- 0L
 DAFFY <- merge(DAFFY, PCAFFY, by.x = "Barcode", by.y = "IID", all.x =T, all.y = F, sort = F)
 rm(PCAFFY)
 colnames(DAFFY)[1] <- "IID"
 
 DAFFY <- DAFFY[,c("FID", "IID", "BMI", "age", "age2", "sex", "CURSMK", paste0("PC", 1:20))]
+
 write.table(DAFFY, "dataF_AFFY.txt", sep = "\t", quote = F, row.names = F)
